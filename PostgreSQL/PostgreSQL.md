@@ -63,10 +63,14 @@ Postgres can be connected from a programming language, a CLI tool or a GUI. Post
 [To know more about constraints and their types.](https://www.postgresql.org/docs/current/ddl-constraints.html)
 ---
 # 8. Indexing in PostgreSQL:-
-- **Indexing** is a data structure that you build and assign on top of an existing table that looks through your table, tries to anaylize it and summarize it so it can create kind of a shortcut. Basically, **Indexing** are a common way to enhance database performance.
+- **Indexing** is a data structure -B+Tree mostly- that you build and assign on top of an existing table that looks through your table, tries to anaylize it and summarize it so it can create kind of a shortcut. Basically, **Indexing** are a common way to enhance database performance.
 
  For example, if you want to reference all pages in a book that discusses a certain topic, you have to first refer to the **index**, which lists all topics alphabetically and then refer to one or more specific page numbers.
  [Indexing in PostgreSQL.](https://www.tutorialspoint.com/postgresql/postgresql_indexes.htm)
+ 
+ ---
+# 9. How does indexing in MySQL differ from PostgreSQL?
+**MySQL** supports B-tree and R-tree indexing that stores hierarchically indexed data.**PostgreSQL** index types include trees, expression indexes, partial indexes, and hash indexes. [MySQL vs. PostgreSQL.](https://medium.com/@hnasr/postgres-vs-mysql-5fa3c588a94e)
 
 
 
