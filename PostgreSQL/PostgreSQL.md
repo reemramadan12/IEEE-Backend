@@ -1,4 +1,4 @@
-# 1. what is RDBMS?
+# 1. What is RDBMS?
 
 - RDBMS stands for Relational Database Management System.
 - RDBMS is the basis for all modern database systems.
@@ -45,7 +45,7 @@ Postgres can be connected from a programming language, a CLI tool or a GUI. Post
  [more about pgAdmin.](https://www.enterprisedb.com/postgres-tutorials/pgadmin-comparable-tool-plsql-developer-postgresql#:~:text=pgAdmin%20is%20the%20leading%20open,and%20use%20of%20database%20objects.)
 
  ---
- # 6. naming conventions :-
+ # 6. Naming conventions :-
  for example, when we name **RDBMS** we should always remember that consistency is the best approach.
 
  ## some of the most importants rules :-
@@ -55,6 +55,20 @@ Postgres can be connected from a programming language, a CLI tool or a GUI. Post
 1. Avoid use of dots, spaces, or dashes in database, schema, table, or column names.
 1. When naming objects, balance the objective of keeping names short and easy to use with the objective of making names as descriptive as possible. When in doubt, choose the more descriptive name, because the objects in the database may be used by many people over a period of time. For example use payment_due_date instead of pmdd.
 [for more info about naming conventions.](https://www.coding-guidelines.lftechnology.com/docs/rdbms/rdbms-naming-convention/)
+
+----
+# 7. Constraints in PostgreSQL:-
+- **Constraints** are a way to tell Postgres which kinds of data can be inserted into tables, columns, or rows.
+- **Constraints** give you as much control over the data in your tables as you wish. If a user attempts to store data in a column that would violate a constraint, an error is raised. This applies even if the value came from the default value definition.
+[To know more about constraints and their types.](https://www.postgresql.org/docs/current/ddl-constraints.html)
+---
+# 8. Indexing in PostgreSQL:-
+- **Indexing** is a data structure that you build and assign on top of an existing table that looks through your table, tries to anaylize it and summarize it so it can create kind of a shortcut. Basically, **Indexing** are a common way to enhance database performance.
+
+ For example, if you want to reference all pages in a book that discusses a certain topic, you have to first refer to the **index**, which lists all topics alphabetically and then refer to one or more specific page numbers.
+ [Indexing in PostgreSQL.](https://www.tutorialspoint.com/postgresql/postgresql_indexes.htm)
+
+
 
 
 
