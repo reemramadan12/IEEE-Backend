@@ -72,7 +72,37 @@ Postgres can be connected from a programming language, a CLI tool or a GUI. Post
 # 9. How does indexing in MySQL differ from PostgreSQL?
 **MySQL** supports B-tree and R-tree indexing that stores hierarchically indexed data.**PostgreSQL** index types include trees, expression indexes, partial indexes, and hash indexes. [MySQL vs. PostgreSQL.](https://medium.com/@hnasr/postgres-vs-mysql-5fa3c588a94e)
 
+---
+# 10. Relations :-
+ In a relational database, each table is connected to another table using the Primary-Foreign Key constraints.
+## 1- One-to-One Relation :-
+  In **One-to-One relationship**, one record of the first table will be linked to zero or one record of another table. For example, each employee in the `Employee` table will have a corresponding row in `EmployeeDetails` table that stores the current passport details for that particular employee. So, each employee will have zero or one record in the `EmployeeDetails` table. This is called zero or one-to-one relationship.
+  ![alt text](tables-relations5.webp)
 
+Above, `EmployeeID` column is the primary key as well as foreign key column in the `EmployeeDetails` table that linked to `EmployeeID` of the `Employee` table. This forms zero or one-to-one relation.
 
+ ### The following query will display data from both the tables :-
+ ```SQL
+ SELECT * FROM Employee
+ SELECT * FROM EmployeeDetails
+ ```
 
+The following is the result of the above queries that demonstrate how each employee has none or just one corresponding record in `EmployeeDetails` table.
 
+![alt text](tables-relations6.webp)
+---
+## 2- One-to-Many Relation :-
+**One-to-Many** is the most commonly used relationship among tables. A single record from one table can be linked to zero or more rows in another table.
+
+Let's take an example of the `Employee` and `Address` table in the `HR` database. The `Employee` table stores employee records where `EmployeeID` is the primary key. The `Address` table holds the addresses of employees where `AddressID` is a primary key and `EmployeeID` is a foreign key. Each employee will have one record in the `Employee` table. Each employee can have many addresses such as Home address, Office Address, Permanent address, etc.
+
+The `Employee` and `Address` tables are linked by the key column `EmployeeID`. It is a foreign key in the `Address` table linking to the primary key `EmployeeID` in the `Employee` table. Thus, one record of the `Employee` table can point to multiple records in the `Address` table. This is a One-to-Many relationship.
+![alt text](tables-relations1.webp)
+
+### The following query will display data from both the tables :-
+```SQL
+SELECT * FROM Employee
+SELECT * FROM Address
+```
+The following is the result of the above queries to demonstrate how the data is related in **one-to-many relationship**.![alt text](tables-relations2.webp)
+In the above data, each record in the `Employee` table associated with zero or more records in the `Address` table, e.g. `James Bond` has zero address, `John King` has three addresses. [Relations.](https://www.tutorialsteacher.com/sqlserver/tables-relations#one-to-one-relation)
