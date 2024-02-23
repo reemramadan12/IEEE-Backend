@@ -106,3 +106,55 @@ SELECT * FROM Address
 ```
 The following is the result of the above queries to demonstrate how the data is related in **one-to-many relationship**.![alt text](tables-relations2.webp)
 In the above data, each record in the `Employee` table associated with zero or more records in the `Address` table, e.g. `James Bond` has zero address, `John King` has three addresses. [Relations.](https://www.tutorialsteacher.com/sqlserver/tables-relations#one-to-one-relation)
+
+----
+# 11. Multi-version concurrency Control :-
+One of the big selling points of Postgres is how it handles concurrency. The promise is simple: reads never block writes and vice versa. Postgres achieves this via a mechanism called Multi Version Concurrency Control. This technique isn’t unique to Postgres: there are several databases that implement some form of MVCC including Oracle, Berkeley DB, CouchDB and many more. Understanding how MVCC is implemented in Postgres is important when designing highly concurrent apps on PostgreSQL. It’s actually an elegant and simple solution to a hard problem.
+[MVCC.](https://devcenter.heroku.com/articles/postgresql-concurrency#how-mvcc-works)
+
+----
+# 12. Triggers :-
+ An SQL trigger allows you to specify SQL actions that should be executed automatically when a specific event occurs in the database.
+
+ ## Types of SQL Triggers :-
+
+### 1. Row-Level Triggers :-
+A **row-level trigger** is executed once for each row affected by the triggering event, which is typically an `INSERT`, `UPDATE`, or `DELETE` statement.
+
+For example, let’s assume you defined an `INSERT` trigger for a table. Then, you add several rows to that table with a single query. So, the row trigger will be automatically fired for each new row.
+
+**Row-level triggers** are particularly useful to enforce business rules, maintain database integrity, and automatically perform SQL tasks. At the same time, they can have a significant impact on the performance of a database. This is especially true if they are used extensively or contain complex queries. So, you need to use row-level triggers only when really necessary.
+
+### 2. Statement-Level Triggers :-
+A **statement-level trigger** is executed once for the entire triggering event, instead of once for each row affected by the event. Statement-level triggers are useful to perform an action based on the overall effect of an `INSERT`, `UPDATE`, or `DELETE` statement, rather than on individual rows.
+[more about triggers in SQL.](https://www.dbvis.com/thetable/sql-triggers-what-they-are-and-how-to-use-them/#:~:text=An%20SQL%20trigger%20allows%20you,is%20inserted%20into%20another%20table.)
+
+----
+# 13. How can you take the backup of a database?
+
+As with everything that contains valuable data, PostgreSQL databases should be backed up regularly. While the procedure is essentially simple, it is important to have a basic understanding of the underlying techniques and assumptions.
+
+There are three fundamentally different approaches to backing up PostgreSQL data:
+
+- SQL dump
+- File system level backup
+- On-line backup
+
+Each has its own strengths and weaknesses. let's discuss one of them which the **SQL dump**.
+
+The idea behind the **SQL-dump** method is to generate a text file with SQL commands that, when fed back to the server, will recreate the database in the same state as it was at the time of the dump. PostgreSQL provides the utility program pg_dump for this purpose. The basic usage of this command is:
+```SQL
+pg_dump dbname > outfile
+```
+As you see, pg_dump writes its results to the standard output. We will see below how this can be useful.
+
+pg_dump is a regular PostgreSQL client application (albeit a particularly clever one). This means that you can do this backup procedure from any remote host that has access to the database. But remember that pg_dump does not operate with special permissions. In particular, it must have read access to all tables that you want to back up, so in practice you almost always have to run it as a database superuser.
+
+To specify which database server pg_dump should contact, use the command line options -h *host* and -p *port*. The default host is the local host or whatever your PGHOST environment variable specifies. Similarly, the default port is indicated by the PGPORT environment variable or, failing that, by the compiled-in default. (Conveniently, the server will normally have the same compiled-in default.)
+
+As any other PostgreSQL client application, pg_dump will by default connect with the database user name that is equal to the current operating system user name. To override this, either specify the -U option or set the environment variable PGUSER. Remember that pg_dump connections are subject to the normal client authentication mechanisms (which are described in Chapter 20).
+
+Dumps created by pg_dump are internally consistent, that is, updates to the database while pg_dump is running will not be in the dump. pg_dump does not block other operations on the database while it is working. (Exceptions are those operations that need to operate with an exclusive lock, such as VACUUM FULL.)
+
+Important: When your database schema relies on OIDs (for instance as foreign keys) you must instruct pg_dump to dump the OIDs as well. To do this, use the -o command line option.
+[Database backup.](https://www.postgresql.org/docs/8.1/backup.html)
