@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Information Form</title>
+</head>
+<body>
+  <h1>User Information Form</h1>
+  <form action="process_form.php" method="POST" enctype="multipart/form-data">
+
+
+    <!--Name-->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br><br>
+
+    <!--Phone Number-->
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" required>
+    <br><br>
+
+    <!--Gender-->
+    <label>Gender:</label>
+    <label for="male">Male</label>
+    <input type="radio" id="male" name="gender" value="Male" required>
+    <label for="female">Female</label>
+    <input type="radio" id="female" name="gender" value="Female" required>
+    <label for="other">Other</label>
+    <input type="radio" id="other" name="gender" value="Other" required>
+    <br><br>
+
+    <!--Hobbies-->
+    <label>Hobbies:</label>
+    <label for="hobby1">Reading</label>
+    <input type="checkbox" id="hobby1" name="hobbies" value="Reading">
+    <label for="hobby2">Swimming</label>
+    <input type="checkbox" id="hobby2" name="hobbies" value="Swimming">
+    <label for="hobby3">Cooking</label>
+    <input type="checkbox" id="hobby3" name="hobbies" value="Cooking">
+    <label for="hobby4">Crocheting</label>
+    <input type="checkbox" id="hobby4" name="hobbies" value="Crocheting">
+    <br><br>
+
+    <!--Technical Tracks-->
+    <label>Technical Track:</label>
+    <select id="technical_track" name="technical_track" required>
+      <option value="">Select One</option>
+      <option value="Front End">Front End</option>
+      <option value="Back End">Back End</option>
+      <option value="Mobile Application">Mobile Application</option>
+      <option value="Data Science">Data Science</option>
+      <option value="AI">AI</option>
+      <option value="Advanced AI">Advanced AI</option>
+    </select><br><br>
+
+    <!--Profile Picture-->
+    <label>Profile Picture:</label>
+    <input type="file" id="profile_picture" name="profile_picture">
+    <br><br>
+
+    <!--Cv-->
+    <label>Upload CV:</label>
+    <input type="file" id="cv" name="cv">
+    <br><br>
+
+    <!--Dob-->
+    <label>Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required>
+    <br><br>
+     
+    <!--Audio Introduction-->
+    <label>Introduction (1 min audio):</label>
+    <input type="file" id="introduction" name="introduction" accept="audio/*">
+    <br><br>
+
+    <!--Home Page-->
+    <a href="homepage.html">Go to Home Page</a>
+    <br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>  
