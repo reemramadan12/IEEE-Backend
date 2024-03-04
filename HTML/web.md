@@ -1,12 +1,12 @@
 # Fundamentals of the web.
 
-1. [How does the web work?](#how-does-the-web-work)
-1. [HTTP.](#HTTP)
+1. [How does the web work.](#how-does-the-web-work)
+1. [HTTP.](#http)
 1. [Web servers.](#web-servers)
-1. [DNS.](#DNS)
+1. [DNS.](#dns)
 
 ---
-## 1. How does the web work?
+## How does the web work
 
 A **website is a collection of web pages** which store information in form of text, pictures, videos, animation, or any other form. A website needs a  hosting server to host it or store its data. The domain name is basically the name of the website which helps a user to find the address of the website. And below is the whole process for the functioning of a site :-
 
@@ -16,7 +16,7 @@ A **website is a collection of web pages** which store information in form of te
 1. And the main server now sends the response to the web browser or to the user.
 1. The user is now able to view the site.
 ---
-## 2. HTTP :-
+# HTTP:
 
 The **Hypertext Transfer Protocol (HTTP)** is the foundation of the World Wide Web, and is used to load webpages using hypertext links. **HTTP** is an application layer protocol designed to transfer information between networked devices and runs on top of other layers of the network protocol stack. A typical flow over **HTTP** involves a client machine making a request to a server, which then sends a response message.
 
@@ -31,7 +31,7 @@ Each **HTTP request** made across the Internet carries with it a series of encod
 1. HTTP request headers.
 1. Optional HTTP body.
 ---
-## 3. Web Servers :-
+##  Web Servers :-
  A **web server is software and hardware that uses HTTP** (Hypertext Transfer Protocol) **and other protocols** to respond to client requests made over the World Wide Web. The main job of a web server is to **display website content** through storing, processing and delivering webpages to users.
 
  ### Examples of web server uses :-
@@ -41,7 +41,7 @@ Web servers often come as part of a larger package of internet- and intranet-rel
 1. downloading requests for File Transfer Protocol (FTP) files.
 1. building and publishing webpages.
 ---
- ## 4. DNS :-
+ ## DNS :-
 The **Domain Name System (DNS) is the phonebook of the Internet**. Humans access information online through domain names, like *nytimes.com* or *espn.com*. **Web browsers interact through Internet Protocol (IP) addresses**. DNS translates domain names to IP addresses so browsers can load Internet resources.
 
 Each device connected to the Internet has a unique IP address which other machines use to find the device. DNS servers eliminate the need for humans to memorize IP addresses such as 192.168.1.1 (in IPv4), or more complex newer alphanumeric IP addresses such as 2400:cb00:2048:1::c629:d7a2 (in IPv6).
