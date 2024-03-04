@@ -6,7 +6,7 @@
 1. [DNS.](#dns)
 
 ---
-## How does the web work
+## How does the web work?
 
 A **website is a collection of web pages** which store information in form of text, pictures, videos, animation, or any other form. A website needs a  hosting server to host it or store its data. The domain name is basically the name of the website which helps a user to find the address of the website. And below is the whole process for the functioning of a site :-
 
