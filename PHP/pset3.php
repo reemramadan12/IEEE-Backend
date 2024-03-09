@@ -31,8 +31,7 @@
   echo ${$name}; //method 4
   echo '<br>';
   echo ${"elzero"}; //method 5
-  
-?>
+  ?>
 
 
 <?php
