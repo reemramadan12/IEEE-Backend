@@ -6,6 +6,8 @@
 1. [Programming language vs scripting langauge](#programming-language-vs-scripting-langauge)
 1. [Dynamically typed vs statically typed language](#dynamically-typed-vs-statically-typed-language)
 1. [Assign by value vs assign by reference](#assign-by-value-vs-assign-by-reference)
+1. [What are the different types of loop in PHP?](#what-are-the-different-types-of-loop-in-php)
+1. [What is the difference between for and foreach loop in PHP?](#what-is-the-difference-between-for-and-foreach-loop-in-php)
 
 ----
 
@@ -111,6 +113,85 @@ In the second example, **when $value2 is assigned by reference to $value1, chang
 
 **Assigning by reference is done using the & symbol before the variable name**, as seen in the example above `$value2 =& $value1`.
 
+----
+## What are the different types of loop in PHP?
+Often when you write code, you want the same block of code to run over and over again a certain number of times. So, instead of adding several almost equal code-lines in a script, we can use loops.
+
+**Loops are used to execute the same block of code again and again, as long as a certain condition is true.**
+
+In PHP, we have the following loop types:
+
+- `while` - loops through a block of code as long as the specified condition is true.
+- `do...while` - loops through a block of code once, and then repeats the loop as long as the specified condition is true.
+- `for` - loops through a block of code a specified number of times.
+- `foreach` - loops through a block of code for each element in an array.
+
+### Example on while loop:-
+Print $i as long as $i is less than 6:
+```php
+$i = 1;
+while ($i < 6) {
+  echo $i;
+  $i++;
+}
+```
+----
+## What is the difference between for and foreach loop in PHP?
+### 1- For Loop:-
+**The for loop works at the end of the given condition**. It is used for the implementation of variables and works in a single way. The for loop **does not work in the case of associative arrays**. A for loop basically consists of three portions or parts. 
+
+- A variable is initialized with a value.
+- The variable is subjected to the condition to which it is compared.
+- Increment/decrement loop counter.
+```php
+for(expr1; expr2; expr3) {
+    // Perform action
+}
+```
+Example: This example illustrates the basic usage of the for Loop.
+
+```php
+<?php
+ 
+// Declaring an array
+$arr = array(1, 2, 3, 4, 5);
+ 
+// Looping over array
+for($i = 0; $i < 5; $i++) {
+ 
+// Accessing individual elements
+    echo($arr[$i] . "  ");
+}
+ 
+?>
+```
+Output is : 1 2 3 4 5.
+
+---
+### 2- Foreach Loop:-
+**The foreach loop works at the end of the array count**. This loop **can work with variables as well as associative arrays**. Therefore, this loop can be implemented in more than one way. The foreach loop is much better and performs better in comparison to the for loop.
+```php 
+foreach ($array as $value) {
+    // Perform action
+}
+```
+Example 1: This example illustrates the basic usage of the Foreach Loop.
+```php
+<?php
+ 
+// Declaring an array
+$arr = [1, 2, 3, 4, 5];
+ 
+// Looping over array
+foreach ($arr as $val) {
+    // Accessing individual elements
+    echo $val . "  ";
+}
+ 
+?>
+```
+Output is : 1 2 3 4 5.
+
 ---
 ### resources :-
 1. [What is PHP?](https://www.php.net/manual/en/intro-whatis.php)
@@ -120,3 +201,5 @@ In the second example, **when $value2 is assigned by reference to $value1, chang
 1. [Programming language vs scripting langauge.](https://www.unosquare.com/blog/scripting-and-programming-languages-differences-advantages-and-optimal-use-cases/#:~:text=Scripting%20languages%20are%20used%20for,systems%20and%20enterprise%2Dlevel%20software.)
 1. [Dynamically typed vs statically typed language.](https://www.bairesdev.com/blog/static-vs-dynamic-typing/)
 1. [Assign by value vs assign by reference.](https://chat.openai.com/c/58e524b6-9ab2-45c5-9c11-6f8d8a180cf2)
+1. [Different types of loop in PHP.](https://www.w3schools.com/php/php_looping_while.asp)
+1. [The difference between for and foreach loop in PHP.](https://www.geeksforgeeks.org/what-is-the-difference-between-for-and-foreach-loop-in-php/)
