@@ -8,7 +8,12 @@
 1. [Assign by value vs assign by reference](#assign-by-value-vs-assign-by-reference)
 1. [What are the different types of loop in PHP?](#what-are-the-different-types-of-loop-in-php)
 1. [What is the difference between for and foreach loop in PHP?](#what-is-the-difference-between-for-and-foreach-loop-in-php)
-
+1. [What are superglobals in PHP?](#what-are-superglobals-in-php)
+1. [Differentiate between GET and POST methods in PHP](#differentiate-between-get-and-post-methods-in-php)
+1. [What are closures in PHP?](#what-are-closures-in-php)
+1. [What are the steps to create a new database using postgreSQL and PHP?](#what-are-the-steps-to-create-a-new-database-using-postgresql-and-php)
+1. [What are cookies? How to create cookies in PHP?](#what-are-cookies-how-to-create-cookies-in-php)
+1. [What is the difference between the include() and require() functions?](#what-is-the-difference-between-the-include-and-requirefunctions)
 ----
 
 ## What is PHP?
@@ -192,6 +197,159 @@ foreach ($arr as $val) {
 ```
 Output is : 1 2 3 4 5.
 
+-----
+## What are superglobals in PHP?
+
+Some predefined variables in PHP are "superglobals", which means that they are always accessible, regardless of scope - and you can access them from any function, class or file without having to do anything special.
+
+The PHP superglobal variables are:
+
+- `$GLOBALS`
+- `$_SERVER`
+- `$_REQUEST`
+- `$_POST`
+- `$_GET`
+- `$_FILES`
+- `$_ENV`
+- `$_COOKIE`
+- `$_SESSION`
+
+---
+
+## Differentiate between GET and POST methods in PHP
+| Parameter | GET | POST |
+| :-------- | :-- | :--- |
+| Visibility | Data is appended to the URL and visible in the browser's address bar. | Data is included in the request body and not visible in the URL. 
+| Data Length | Limited by the URL length, which can vary by browser and server. Typically, around 2048 characters. | No inherent limit on data size, allowing for large amounts of data to be sent.
+| Security | Less secure due to visibility in the URL. Sensitive data can be easily exposed in browser history, server logs, etc. | More secure for transmitting sensitive data since it's not exposed in the URL.
+| Use Case | Ideal for simple data retrieval where the data can be bookmarked or shared. | Suited for transactions that result in a change on the server, such as updating data, submitting forms, and uploading files.
+| Idempotency | Idempotent, meaning multiple identical requests have the same effect as a single request. |Non-idempotent, meaning multiple identical requests, may have different outcomes.
+| Caching | Can be cached by the browser and proxies. | Not cached by default since it can change the server state.
+| Data Type | Only ASCII characters are allowed. Non-ASCII characters must be encoded. | Can handle binary data in addition to text, making it suitable for file uploads.
+| Back/Forward Buttons | Reloading a page requested by GET does not usually require browser confirmation. | Reloading a page can cause the browser to prompt the user for confirmation to resubmit the POST request.
+| Bookmarks and Sharing | Easily bookmarked and shared since the data is part of the URL. | Cannot be bookmarked or shared through the URL since the data is in the request body.
+| Impact on Server | Generally used for retrieving data without any side effects on the server. | Often causes a change in server state (e.g., database updates) or side effects. |
+
+-----
+## What are closures in PHP?
+In PHP, closures (also known as anonymous functions) are a powerful feature that allows you to create functions without giving them a name. They are useful for tasks like callback functions and are commonly used in event handling, asynchronous programming, and more.
+
+Here's a breakdown of closures in PHP:
+
+1. **Anonymous Functions**: Closures are defined using the `function` keyword followed by a pair of parentheses `( )`, which may contain arguments, and then a pair of curly braces `{ }` enclosing the function body.
+
+2. **Capturing Variables**: Closures can capture variables from the surrounding scope. This means they have access to variables defined outside of their own scope. This feature is called "variable binding" or "closure binding." 
+
+   ```php
+   $name = "John";
+
+   $greeting = function() use ($name) {
+       echo "Hello, $name!";
+   };
+
+   $greeting(); // Output: Hello, John!
+   ```
+
+3. **Returning Closures**: Closures can be returned from functions, allowing for more flexible and powerful coding patterns.
+
+   ```php
+   function greetingClosure($name) {
+       return function() use ($name) {
+           echo "Hello, $name!";
+       };
+   }
+
+   $greeting = greetingClosure("John");
+   $greeting(); // Output: Hello, John!
+   ```
+
+4. **Passing Closures as Arguments**: Closures can be passed as arguments to other functions. This is particularly useful for defining callback functions.
+
+   ```php
+   function sayHello($callback) {
+       $callback();
+   }
+
+   sayHello(function() {
+       echo "Hello, world!";
+   });
+   ```
+
+5. **Arrow Functions (PHP 7.4+)**: PHP 7.4 introduced arrow functions, which are a more concise syntax for writing closures that have implicit return values. They offer a shorter syntax for simple, single-expression functions.
+
+   ```php
+   $greet = fn($name) => "Hello, $name!";
+   echo $greet("John"); // Output: Hello, John!
+   ```
+
+Closures in PHP provide a convenient way to work with functions and callbacks, making code more concise and expressive.
+
+---
+## What are the steps to create a new database using postgreSQL and PHP?
+
+To create a new database using PostgreSQL and PHP, you'll need to follow these steps:
+
+1. **Install PostgreSQL**: Ensure that PostgreSQL is installed on your system. You can download and install PostgreSQL from the official website (https://www.postgresql.org/download/) or use a package manager like Homebrew (for macOS) or apt (for Debian-based Linux distributions).
+
+2. **Set Up PostgreSQL**: After installation, make sure PostgreSQL is running. You may need to start the PostgreSQL service if it's not already running. You can do this using the appropriate command for your operating system.
+
+3. **Install PHP PostgreSQL Extension (if not already installed)**: If you haven't already installed the PostgreSQL extension for PHP, you can do so using the package manager for your system or by compiling PHP with PostgreSQL support. For example, on Ubuntu, you can install the extension with:
+
+   ```
+   sudo apt-get install php-pgsql
+   ```
+
+4. **Connect to PostgreSQL**: In your PHP script, establish a connection to the PostgreSQL database using the `pg_connect()` function or a similar method. Make sure to provide the appropriate hostname, username, password, and database name.
+
+   ```php
+   $host = "localhost";
+   $port = "5432";
+   $dbname = "your_database";
+   $user = "your_username";
+   $password = "your_password";
+
+   $connection = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
+   if (!$connection) {
+       die("Connection failed: " . pg_last_error());
+   }
+   ```
+
+5. **Create a New Database**: Once connected, execute a SQL command to create a new database. You can use the `pg_query()` function to send SQL queries to the PostgreSQL server.
+
+   ```php
+   $query = "CREATE DATABASE new_database";
+   $result = pg_query($connection, $query);
+   if (!$result) {
+       die("Database creation failed: " . pg_last_error());
+   } else {
+       echo "Database created successfully.";
+   }
+   ```
+
+6. **Close Connection**: After creating the database, it's good practice to close the connection to PostgreSQL using the `pg_close()` function.
+
+   ```php
+   pg_close($connection);
+   ```
+
+These steps should guide you through the process of creating a new PostgreSQL database using PHP. Make sure to handle errors appropriately and secure your database connection by avoiding hardcoding sensitive information in your PHP scripts.
+
+----
+## What are cookies? How to create cookies in PHP?
+PHP transparently supports HTTP cookies. **Cookies are a mechanism for storing data in the remote browser and thus tracking or identifying return users**. You can set cookies using the `setcookie()` or `setrawcookie()` function. Cookies are part of the HTTP header, so `setcookie()` must be called before any output is sent to the browser. This is the same limitation that `header()` has. You can use **the output buffering functions** to delay the script output until you have decided whether or not to set any cookies or send any headers.
+
+Any cookies sent to server from the client will automatically be included into a `$_COOKIE` auto-global array if `variables_order` contains "C". If you wish to assign multiple values to a single cookie, just add `[]` to the cookie name.
+
+----
+## What is the difference between the include() and require()functions?
+| include() | require() |
+| :-------- | :-------- |
+| The `include()` function does not stop the execution of the script even if any error occurs. | The `require()` function will stop the execution of the script when an error occurs.
+| The `include()` function does not give a fatal error. | The `require()` function gives a fatal error.
+| The `include()` function is mostly used when the file is not required and the application should continue to execute its process when the file is not found. | The `require()` function is mostly used when the file is mandatory for the application. 
+| The `include()` function will only produce a warning  **(E_WARNING)** and the script will continue to execute. | The `require()` will produce a fatal error **(E_COMPILE_ERROR)** along with the warning and the script will stop its execution.
+| The `include()` function generate various functions and elements that are reused across many pages taking a longer time for the process completion.	| The `require()` function is more in recommendation and considered better whenever we need to stop the execution incase of availability of file, it also saves time avoiding unnecessary inclusions and generations.
+
 ---
 ### resources :-
 1. [What is PHP?](https://www.php.net/manual/en/intro-whatis.php)
@@ -203,3 +361,9 @@ Output is : 1 2 3 4 5.
 1. [Assign by value vs assign by reference.](https://chat.openai.com/c/58e524b6-9ab2-45c5-9c11-6f8d8a180cf2)
 1. [Different types of loop in PHP.](https://www.w3schools.com/php/php_looping_while.asp)
 1. [The difference between for and foreach loop in PHP.](https://www.geeksforgeeks.org/what-is-the-difference-between-for-and-foreach-loop-in-php/)
+1. [Superglobals in PHP.](https://www.w3schools.com/php/php_superglobals.asp)
+1. [GET and POST methods in PHP.](https://www.shiksha.com/online-courses/articles/difference-between-get-and-post-in-php-blogId-155719#1)
+1. [Closures in PHP.](https://chat.openai.com/c/32bf5a29-c50a-44a8-9ba1-8df9040c520b)
+1. [Steps to create a new database using postgreSQL and PHP.](https://chat.openai.com/c/32bf5a29-c50a-44a8-9ba1-8df9040c520b)
+1. [What are cookies? How to create cookies in PHP?](https://www.php.net/manual/en/features.cookies.php#:~:text=Cookies%20are%20a%20mechanism%20for,is%20sent%20to%20the%20browser.)
+1. [The difference between the include() and require() functions.](https://www.geeksforgeeks.org/difference-between-require-and-include-in-php/)
