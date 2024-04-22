@@ -70,3 +70,106 @@ For extra security, add the *index.php* file and this *.htaccess* file too.
 Serves will automatically process php fles and not display them. On the other hand, if I saved my data or the database I have in a json or a txt file then anyone could access it and see whatever is in there.
 
 ----
+## PHP code injection using the `include` function :-
+when you're including files it's possible -not very common tho- that someone might add their own PHP code or even uploading a file that contains an image or that pretends to contain an image but it really contains a PHP code and using your `include` or `require` functions they may end up running that PHP code and if they could run this code then they pretty much own this PHP code on the server and they could do so much more such as checking your database to see anything they want and that's a very dangerous thing to happen.
+
+How could you prohibit such thing?
+
+1. don't leave the file extension in the URL.
+1. when you're loading jpegs or images make sure to crop them; because every time you crop an image it'll no longer contain the hidden information as this info will change while resizing the image and changing its pixels.
+1. check for files to make sure that you're only reading the files that are contained in our current folder. to do so we must collect all the files that exist, for example:-
+
+
+```php
+<?php
+$page = isset($_GET['page']) ? $_GET['page'] : "home.php";//to get the name of the page
+$folder = "./"; //this is the current folder or you could only type this => ""
+$files = glob($folder . "*.php"); //to collect all the files -the php ones- that exist
+
+if(in_array("./" . $page . ".php", $files)){ //to check whether the page that the user supplied exists in the files or not
+    require($page . ".php"); //to make sure we're always running a php file so that we could mess up the image that has the hidden info
+}else{
+    echo "couldn't find the file";
+} //we did all this to make sure that the file you are opening exists inside the folder and when we try to open the .jpg extension it won't work.
+//I could add all the files I want in an array before the if condition so that this if could make sure that they exist in order to open them and this method is called whitelisting; you're selecting what you want to see as opposed to banning certain things. so, this is more secure because no one could add any different file that you didn't put there for as long as it doesn't exist in that array 
+?> 
+```
+**side note** : when you use the `require` function in your code it'll run this PHP code even if this code is in a *.txt* file or a *.json* file.
+
+so, instead you could use `file_get_contents` to run nothing from this code and outside the `<?php ?>` you could write anything and it'll appear.
+
+----
+## How to keep things simple? (video #06)
+- less points of entry(if you have many pages that are independent from one another, convert them all to run from the same single page by including all the files in the index/main page).
+- segmented code (meaning that if you find yourself typing too much code in one file, cut a certain amout of code and put it in a different file and then just include this file; to make error detecting/debugging easier).
+- use OOP; as it makes your code more organized and it's easier to figure out where the problem is.
+
+---
+## How to create clean URLs? (video #07)
+instead of **www,website.com/index.php?page=login** we want it to be more clean like this **www.website.com/login**. so, in order to get rid of the **index.php?page=** we need to do this:-
+We need to use the *.htaccess* file which contains two orders that are saying we should ignore the files or directories, so that when we want to upload an image from a certain file and other ones from a certain folder we'd be able to do that.
+
+Create a header file; in this file add the html line of code from the home page that has `<center></center>` and change the first href to this `href ="home"`, the second href to this `href="profile"`, the third href to this `href="posts"` and the last one to this `href="login"`.
+
+Then, in each page we have we need to change the link of the header to this => `<?php include('header.php') ?>` 
+
+Now, instead of using the `$_GET` function to get the name from the page, we'll be getting it from the url so rewrite the line like this:-
+```php
+$page = isset($_GET['url']) ? $_GET['url'] : "home"; 
+```
+----
+## Login error messaging:- (video #10) 
+In this part we're concerned with the weaknesses that are in the login page such as:-
+
+giving a message that's too obvious; like when the user writes a wrong email it says "wrong email" or when he/she write a wrong password it says "wrong password". This might seem useful at the first glance but it isn't cause it's just obvious for the hacker to know.
+
+    Instead, the message should be "wrong email or password" in both cases.
+
+---
+## The principle of least privilege:- (video #11)
+
+This is about putting everyone in the place they should be at.
+
+For example, if you want someone to run your social media for you, they shouldn't be given the admin access, the editor access is what they should get.
+
+So, these are the main roles that should be in your system and should be given each of them to the right people:-
+
+- Admin access.
+- Editor access.
+- User access.
+- Everyone.
+
+### how can we limit the access?
+1. we should go to the user's table in our db and a new column called **Rank/Level** for example.
+1. for all people, we need to give access to them depending on their ranking.
+1. to make sure that they all access what they need to, we'll create a function called `access($rank)` :-
+  ```php
+  function access($rank){
+    $user_rank = isset($_SESSION['user_rank']) ? $_SESSION['user_rank'] : "";//so, user rank is gonna be an empty string if we're not set 
+
+    switch($needed_rank){//keep in mind that these are the requirements and not the rank
+        case 'admin':
+        $allowed[] = "admin";
+        return (in_array($user_rank, $allowed));
+        break;
+
+        case 'editor':
+        $allowed[] = "admin";
+        $allowed[] = "editor";
+        return (in_array($user_rank, $allowed));
+        break;
+
+        case 'user':
+        $allowed[] = "admin";
+        $allowed[] = "editor";
+        $allowed[] = "user";
+        return (in_array($user_rank, $allowed));
+        break;
+
+        default:
+         
+        break;
+    }
+     return false;
+  }
+  ```
