@@ -1,0 +1,13 @@
+ CREATE TABLE products(
+    id BIGSERIAL NOT NULL PRIMARY KEY, 
+    Name VARCHAR(100) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    Sale VARCHAR(20) NOT NULL,
+    Seller VARCHAR(100) NOT NULL,
+    Image BYTEA,
+    Quantity INT NOT NULL,
+    Description TEXT NOT NULL,
+    Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Control VARCHAR(30) NOT NULL
+    );
+    
