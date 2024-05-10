@@ -3,18 +3,19 @@
 1. [Inheritance.](#inheritance)
 1. [PHP Interfaces & Polymorphism.](#php-interfaces--polymorphism)
 1. [PHP Traits.](#php-traits)
-
+1. [Error Handling In PHP.](#error-handling-in-php)
+1. [Late Static Binding & How It Works.](#late-static-binding--how-it-works)
 ---
 
 ## Encapsulation and abstraction:-
-| Parameter | Encapsulation | Abstraction |
+| Parameter | Encapsulation | Abstraction | 
 | :-------- | :------------ | :---------- |
-| Process |	It is the process or method for containing information. |	It is a process or method of obtaining information. |
+| Process |	It is the process or method for containing information. |	It is a process or method of obtaining information. | 
 | Solving problem at |	During encapsulation, issues are resolved at the implementation level. |	Abstractions solve problems at the design or interface level.| 
 | Focus |	The focus of encapsulation is “how” it should be done. | The focus of abstraction is “what” to do. |
 | Definition |	It is a way of hiding data in a single entity or unit and a way of protecting information from the outside world. |	Abstraction is a way of hiding unnecessary information. |
 | Implementation |	It can be implemented using access modifiers, i.e. private, protected, public. |	Abstract classes and interfaces can be used to implement abstractions. |
-| Access |	It hides data from direct access by users (data hiding). |	Abstractions allow access to specific pieces of data. |
+| Access |	It hides data from direct access by users (data hiding). |	Abstractions allow access to specific pieces of data. | 
 
 ----
 ## Inheritance:-
@@ -113,9 +114,108 @@ class ezcReflectionFunction extends ReflectionFunction {
 }
 ?>
 ```
+----
+## Error Handling In PHP:-
+Error handling in PHP is simple. An error message with filename, line number and a message describing the error is sent to the browser.
+
+When creating scripts and web applications, error handling is an important part. **If your code lacks error checking code, your program may look very unprofessional and you may be open to security risks**.
+
+
+One of the error handling methods is the **Simple "die()" statements**.
+
+### Example :-
+```php
+<?php
+$file=fopen("mytestfile.txt","r");
+?>
+```
+If the file does not exist you might get an error like this:-
+<br>
+**Warning: fopen(mytestfile.txt) [function.fopen]: failed to open stream: No such file or directory in C:\webfolder\test.php on line 2**
+<br>
+
+To prevent the user from getting an error message like the one above, we test whether the file exist before we try to access it.
+
+### Example :-
+```php
+<?php
+if(file_exists("mytestfile.txt")) {
+  $file = fopen("mytestfile.txt", "r");
+} else {
+  die("Error: The file does not exist.");
+}
+?>
+```
+Now if the file does not exist you get an error like this:
+
+**Error: The file does not exist.**
+
+The code above is more efficient than the earlier code, because it uses a simple error handling mechanism to stop the script after the error.
+
+-----
+## Late Static Binding & How It Works:-
+PHP implements a feature called late static bindings which can be used **to reference the called class in a context of static inheritance**.
+
+More precisely, late static bindings work by storing the class named in the last "non-forwarding call". In case of static method calls, this is the class explicitly named (usually the one on the left of the `::` operator); in case of non static method calls, it is the class of the object. A "forwarding call" is a static one that is introduced by `self::`, `parent::`, `static::`, or, if going up in the class hierarchy, `forward_static_call()`. The function `get_called_class()` can be used to retrieve a string with the name of the called class and `static::` introduces its scope.
+
+This feature was named "late static bindings" with an internal perspective in mind. **"Late binding" comes from the fact that `static::` will not be resolved using the class where the method is defined but it will rather be computed using runtime information**. It was also called a "static binding" as it can be used for (but is not limited to) static method calls.
+
+### Limitations of `self::` :- 
+Static references to the current class like `self::` or `__CLASS__` are resolved using the class in which the function belongs, as in where it was defined:
+
+#### Example #1 `self::` usage :-
+```php
+<?php
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        self::who();
+    }
+}
+
+class B extends A {
+    public static function who() {
+        echo __CLASS__;
+    }
+}
+
+B::test();
+?> 
+```
+The above example will output: **A** <br>
+### Late Static Bindings' usage:-
+Late static bindings tries to solve that limitation **by introducing a keyword that references the class that was initially called at runtime**. Basically, a keyword that would allow referencing *B* from `test()` in the previous example. It was decided not to introduce a new keyword but rather use static that was already reserved.
+
+#### Example #2 `static::` simple usage :-
+```php
+<?php
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        static::who(); // Here comes Late Static Bindings
+    }
+}
+
+class B extends A {
+    public static function who() {
+        echo __CLASS__;
+    }
+}
+
+B::test();
+?>
+```
+The above example will output: **B**
+
 -----
 ## Resources:-
 1. [Encapsulation & Abstraction.](https://www.shiksha.com/online-courses/articles/difference-between-encapsulation-and-abstraction/#Difference-between-encapsulation-and-abstraction)
 1. [Inheritance.](https://www.w3schools.com/php/php_oop_inheritance.asp)
 1. [PHP Interfaces & Polymorphism.](https://medium.com/@iamjoestack/understanding-polymorphism-in-php-3d2670deb6e1#:~:text=Polymorphism%20in%20PHP%20is%20implemented,your%20class%20which%20implements%20it.&text=The%20above%20code%20has%20an%20interface%20named%20shapesInterface.&text=An%20interface%20can%20define%20method,the%20contents%20of%20the%20methods.)
 1. [PHP Traits.](https://www.php.net/manual/en/language.oop5.traits.php)
+1. [Error Handling In PHP.](https://www.w3schools.com/php/php_error.asp)
+1. [Late Static Binding & How It Works.](https://www.php.net/manual/en/language.oop5.late-static-bindings.php#:~:text=PHP%20implements%20a%20feature%20called,%22non%2Dforwarding%20call%22.)
