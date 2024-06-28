@@ -1,0 +1,17 @@
+{
+    "name": "reem/mvc",
+    "autoload": {
+        "psr-4": {
+            "Reem\\Mvc\\": "src/",
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Reem Ramadan",
+            "email": "reemramadanfathy6@gmail.com"
+        }
+    ],
+    "require": {}
+}
+ 
